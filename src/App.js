@@ -15,17 +15,25 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (task) => {
-    setTasks([{}])
-  }
-  // //Add Task
-  // const addTask = (task) => {
-  //   //gives a random number
-  //   //const id = Math.floor(Math.random() * 10000) + 1
-  //   //const newTask = {id, ...task}
-  //   const newTask = getData(task)
-  //   console.log(newTask)
-  //   setTasks(newTask) //Changing the state
-  // }
+    fetch("http://localhost:5000/", {
+      method: "POST",
+      headers: {
+        //Tells the server how the request is encoded (Must do b/c working with JSON)
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        //Request: Sending over the task object type
+        content: task.text,
+        day: task.day,
+        reminder: task.reminder,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTasks(data); //incorrect way to set data (data) => [...tasks, data]
+      })
+      .catch((error) => tasks);
+  };
   
 
   // const getData = async(task) => {
@@ -48,9 +56,9 @@ const App = () => {
   //     (data) => [...tasks, data] //returning newTask and updating the state w/ newTask
   //   )
   //   .catch((error) => tasks);
-  //   return y 
+  //   return y
   // }
-  
+
   //Delete a Task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -69,7 +77,6 @@ const App = () => {
         //request was successful
         (data) =>
           function() {
-            console.log(data);
             setTasks([...tasks, data]); //returning newTask and updating the state w/ newTask
           }
       )
@@ -93,7 +100,6 @@ const App = () => {
       (res) =>
         res.json().then((data) => {
           setTasks(data);
-          console.log(data);
         }) //convert the response to data
     );
   }, []);
