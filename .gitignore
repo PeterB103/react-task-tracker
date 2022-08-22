@@ -10,6 +10,9 @@
 
 # production
 /build
+flask-server/env
+test.db
+*.pyc
 
 # misc
 .DS_Store

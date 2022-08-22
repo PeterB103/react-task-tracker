@@ -24,7 +24,7 @@ const AddTask = ({ onAdd }) => {
         setReminder(false)
     }
   return (
-    <form classNaem = 'add-form' onSubmit = {onSubmit}>
+    <form className = 'add-form' onSubmit = {onSubmit}>
         <div className = 'form-control'>
         <label> Task </label>
         <input type = 'test' placeholder = 'Add Task' value = {text} 
@@ -32,8 +32,8 @@ const AddTask = ({ onAdd }) => {
         </div>
 
         <div className = 'form-control'>
-        <label> Day & Time </label>
-        <input type = 'test' placeholder = 'Add Day & Time' value = {day} 
+        <label> Day </label>
+        <input type = 'date' placeholder = 'Add Day & Time' value = {day} 
         onChange = { (e) => setDay(e.target.value) }/>
         </div>
 
